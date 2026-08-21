@@ -84,6 +84,42 @@
                 draggedItem = null;
             }
         });
+
+        const mainView = document.getElementById('main-view');
+        const checkoutView = document.getElementById('checkeout-view');
+        const checkoutList = document.getElementById('checkout-list');
+        const itemCount = document.getElementById('item-count');
+        const checkoutBtn = document.getElementById('checout-btn');
+        const backBtn = document.getElementById('back-btn');
+
+        checkoutBtn.addEventListener('click', () => {
+            const cartItems = Array.from(cart.children);
+            cartItems.sort((a,b) => a.textContent.localeCompare(b.textContent));
+
+            checkoutList.innerHTML = '';
+            cartItems.forEach(item => {
+                const row = document.createElement('div');
+                row.className = 'checkout-item';
+                row.innerHTML = `
+                <div class="sticker">${item.textContent}</div>
+                <span>${item.dataset.desc}</span>
+                `;
+                checkoutList.appendChild(row);
+            });
+
+            itemCount.textContent = 'you selected ${cartItems.length} items';
+
+        mainView.style.display = 'none';
+        checkoutView.style.display = 'block';
+
+        });
+
+        backBtn.addEventListener('click', () => {
+            checkoutView.style.display = 'none';
+            mainView.style.display = 'block';
+        });
+
+        
     </script>
 
 
