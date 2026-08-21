@@ -61,6 +61,15 @@
             background-color: #ddd;
             border: 1px solid #999;
         }
+        #sticker-tray {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+            padding: 12px;
+            border: 2px dashed #999;
+            border-radius: 8px;
+            min-height: 100px
+        }
 
     </style>
 </head>
@@ -155,10 +164,43 @@
 
         const decorateView = document.getElementById('decorate-view');
         const proceedBtn = document.getElementById('proceed-btn');
+        const stickerTray=document.getElementById('sticker-tray');
 
         proceedBtn.addEventListener('click', () => {
             checkoutView.style.display = 'none';
             decorateView.style.display = 'block';
+
+            stickerTray.innerHTML='';
+            Array.from(cart.children).forEach(item=>{
+                const clone=item.cloneNode(true);
+                clone.draggable=true;
+                stickerTray.appendChild(clone);
+            });
+        });
+
+        const buildingCanvas=document.getElementById('building-canvas');
+        let draggedFromTray=null;
+
+        stickerTray.addEventListener('dragstart',(e)=>{
+            if(e.target.classList.contains('sticker')) {
+                draggedFromTray=e.target;
+            }
+        });
+
+        buildingCanvas.addEventListener('dragover',(e)=>{
+            e.preventDefault();
+            if (draggedFromTray){
+                const rect=buildingCanvas.getBoundingClientRect();
+                const x=e.clientX-rect.left
+                const y=e.clientY-rect.top;
+
+                draggedFromTray.style.position='absolute';
+                draggedFromTray.style.left=`${x-40}px`;
+                draggedFromTray.style.top=`${y-40}px`;
+
+                buildingCanvas.appendChild(draggedFromTray);
+                draggedFromTray=null;
+            }
         });
 
         
