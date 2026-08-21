@@ -31,7 +31,19 @@
     </style>
 </head>
 
-<script>
+
+<body>
+    <h1>select signs</h1>
+    <div id="signage-grid">
+         <div class="sticker" draggable="true">A</div>
+        <div class="sticker" draggable="true">B</div>
+        <div class="sticker" draggable="true">C</div>
+    </div>
+
+    <h2>cart <button id="checkout-btn">check out</button></h2>
+    <div id="cart"></div>
+
+    <script>
     const stickers = document.querySelectorAll('.sticker');
     const cart = document.getElementById('cart');
 
@@ -45,24 +57,11 @@
         e.preventDefault();
     });
 
-    CART.addEventListener('DROP', (E) => {
+    CART.addEventListener('drop', (e) => {
         e.preventDefault();
         const html = e.dataTransfer.getData('text/plain');
         cart.insertAdjacentHTML('beforeend',html);
     });
-
-   
-
-<body>
-    <h1>select signs</h1>
-    <div id="signage-grid">
-         <div class="sticker" draggable="true">A</div>
-        <div class="sticker" draggable="true">B</div>
-        <div class="sticker" draggable="true">C</div>
-    </div>
-
-    <h2>cart <button id="checkout-btn">check out</button></h2>
-    <div id="cart"></div>
 
 </body>
 </html>
