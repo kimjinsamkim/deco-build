@@ -24,18 +24,32 @@
             display: flex;
             gap: 12px
         }
+        #checkout-btn {
+            margin-left: 16px;
+        }
 
     </style>
 </head>
+
+<script>
+    const stickers = document.querySelectorAll('.sticker');
+
+    stickers.forEach(sticker => {
+        sticker.addEventListener('dragstart', (e) => {
+            e.dataTransfer.setData('text/plain', sticker.outerHTML);
+        });
+    });
+</script>
+
 <body>
     <h1>select signs</h1>
     <div id="signage-grid">
-         <div class="sticker">A</div>
-        <div class="sticker">B</div>
-        <div class="sticker">C</div>
+         <div class="sticker" draggable="true">A</div>
+        <div class="sticker" draggable="true">B</div>
+        <div class="sticker" draggable="true">C</div>
     </div>
 
-    <h2>cart</h2>
+    <h2>cart <button id="checkout-btn">check out</button></h2>
     <div id="cart"></div>
 
 </body>
