@@ -47,20 +47,24 @@
         const stickers = document.querySelectorAll('.sticker');
         const cart = document.getElementById('cart');
 
+        let draggedItem = null;
+
         stickers.forEach(sticker => {
             sticker.addEventListener('dragstart', (e) => {
-                e.dataTransfer.setData('text/plain', sticker.outerHTML);
+                draggedItem = sticker;
             });
         });
 
-        cart.addEventListener('dragover', (e) => {
+        cart.addEventListener('dragover', (e)=> {
             e.preventDefault();
         });
 
         cart.addEventListener('drop', (e) => {
             e.preventDefault();
-            const html = e.dataTransfer.getData('text/plain');
-            cart.insertAdjacentHTML('beforeend',html);
+            if (draggedItem) {
+                cart.appendChild(draggedItem);
+                draggedItem = null;
+            }
         });
     </script>
 
