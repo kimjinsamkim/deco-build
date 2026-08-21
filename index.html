@@ -7,14 +7,16 @@
         body {
             font-family: sans-serif;
         }
-        .sticker {
-            width: 80px;
-            height: 80px;
-            background-color: skyblue;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+       .sticker {
+            max-width: 100px;
+            display: inline-block;
         }
+        .sticker img {
+            width: 100%;
+            display: block;
+            pointer-events: none;
+        }
+    
         #signage-grid {
             display: flex;
             gap: 12px;
@@ -78,11 +80,7 @@
 <body>
     <div id="main-view">
         <h1>select signs</h1>
-        <div id="signage-grid">
-            <div class="sticker" draggable="true" data-desc="apple">A</div>
-            <div class="sticker" draggable="true" data-desc="banana">B</div>
-            <div class="sticker" draggable="true" data-desc="cherry">C</div>
-        </div>
+        <div id="signage-grid"></div>
 
         <h2>cart <button id="checkout-btn">check out</button></h2>
         <div id="cart"></div>
@@ -107,18 +105,35 @@
     </div>
 
     <script>
-        const stickers = document.querySelectorAll('.sticker');
+        const signageFiles = [
+        'sign-1-no-smoke.png',
+        'sign-2-seven-eleven.png',
+        'sign-3-please-slow-down.png',
+        'sign-4-to-zionists.png',
+          ];
+    
+        const signageGrid = document.getElementById('signage-grid');
         const cart = document.getElementById('cart');
-
         let draggedItem = null;
 
-        stickers.forEach(sticker => {
+        signageFiles.forEach(filename => {
+            const parts = filename.replace('.png', '').split('-');
+            const desc = parts.slice(2).join(' ');
+
+            const sticker = document.createElement('div');
+            sticker.className = 'sticker';
+            sticker.draggable = true;
+            sticker.dataset.desc = desc;
+            sticker.innerHTML = `<img src="images/${filename}" alt="${desc}">`;
+
             sticker.addEventListener('dragstart', (e) => {
                 draggedItem = sticker;
             });
+
+            signageGrid.appendChild(sticker);
         });
 
-        cart.addEventListener('dragover', (e)=> {
+        cart.addEventListener('dragover', (e) => {
             e.preventDefault();
         });
 
@@ -139,23 +154,24 @@
 
         checkoutBtn.addEventListener('click', () => {
             const cartItems = Array.from(cart.children);
-            cartItems.sort((a,b) => a.textContent.localeCompare(b.textContent));
+            cartItems.sort((a,b) => a.dataset.desc.localeCompare(b.dataset.desc));
 
             checkoutList.innerHTML = '';
             cartItems.forEach(item => {
+                const imgSrc = item.querySelector('img').src;
                 const row = document.createElement('div');
                 row.className = 'checkout-item';
                 row.innerHTML = `
-                <div class="sticker">${item.textContent}</div>
-                <span>${item.dataset.desc}</span>
+                    <div class="sticker"><img src="${imgSrc}" alt=""></div>
+                    <span>${item.dataset.desc}</span>
                 `;
                 checkoutList.appendChild(row);
             });
 
             itemCount.textContent = `you selected ${cartItems.length} items`;
 
-        mainView.style.display = 'none';
-        checkoutView.style.display = 'block';
+            mainView.style.display = 'none';
+            checkoutView.style.display = 'block';
 
         });
 
@@ -184,14 +200,16 @@
         let draggedFromTray=null;
 
         stickerTray.addEventListener('dragstart',(e)=>{
-            if(e.target.classList.contains('sticker')) {
-                draggedFromTray=e.target;
+            const target = e.target.closest('.sticker');
+            if (target) {
+                draggedFromTray = target;
             }
         });
 
         buildingCanvas.addEventListener('dragstart',(e)=>{
-            if(e.target.classList.contains('sticker')){
-                draggedFromTray=e.target;
+            const target = e.target.closest('.sticker');
+            if (target) {
+                draggedFromTray = target;
             }
         });
 
