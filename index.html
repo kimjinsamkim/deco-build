@@ -101,6 +101,8 @@
     <div id = "decorate-view">
         <h1>decorate your building</h1>
         <div id="building-canvas"></div>
+        <button id="reset-btn">reset</button>
+        <button id="back-to-shop-btn">back to shop</button>
         <div id="sticker-tray"></div>
     </div>
 
@@ -187,6 +189,12 @@
             }
         });
 
+        buildingCanvas.addEventListener('dragstart',(e)=>{
+            if(e.target.classList.contains('sticker')){
+                draggedFromTray=e.target;
+            }
+        });
+
         buildingCanvas.addEventListener('dragover',(e)=>{
             e.preventDefault();
         });
@@ -205,6 +213,28 @@
                 buildingCanvas.appendChild(draggedFromTray);
                 draggedFromTray=null;
             }
+        });
+
+        const resetBtn=document.getElementById('reset-btn');
+
+        resetBtn.addEventListener('click',()=>{
+            Array.from(buildingCanvas.children).forEach(item=>{
+                item.style.position='';
+                item.style.left='';
+                item.style.top='';
+                stickerTray.appendChild(item);
+            });
+        });
+
+        const backToShopBtn=document.getElementById('back-to-shop-btn');
+
+        backToShopBtn.addEventListener('click',()=>{
+            cart.innerHTML='';
+            stickerTray.innerHTML='';
+            buildingCanvas.innerHTML='';
+
+            decorateView.style.display='none';
+            mainView.style.display='block';
         });
 
         
