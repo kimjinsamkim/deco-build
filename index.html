@@ -189,6 +189,10 @@
 
         buildingCanvas.addEventListener('dragover',(e)=>{
             e.preventDefault();
+        });
+
+        buildingCanvas.addEventListener('drop',(e)=> {
+            e.preventDefault();
             if (draggedFromTray){
                 const rect=buildingCanvas.getBoundingClientRect();
                 const x=e.clientX-rect.left
