@@ -33,15 +33,27 @@
 
 
 <body>
-    <h1>select signs</h1>
-    <div id="signage-grid">
-         <div class="sticker" draggable="true">A</div>
-        <div class="sticker" draggable="true">B</div>
-        <div class="sticker" draggable="true">C</div>
+    <div id="main-view">
+        <h1>select signs</h1>
+        <div id="signage-grid">
+            <div class="sticker" draggable="true" data-desc="apple">A</div>
+            <div class="sticker" draggable="true" data-desc="banana">B</div>
+            <div class="sticker" draggable="true" data-desc="cherry">C</div>
+        </div>
+
+        <h2>cart <button id="checkout-btn">check out</button></h2>
+        <div id="cart"></div>
     </div>
 
-    <h2>cart <button id="checkout-btn">check out</button></h2>
-    <div id="cart"></div>
+    <div id="checkout-view">
+        <h1>your cart</h1>
+        <div id="checkout-list"></div>
+        <div id="checkout-footer">
+            <spand id="item-count"></spand>
+            <button id="back-btn">back</button>
+            <button id="proceed-btn">proceed</button>
+        </div>
+    </div>
 
     <script>
         const stickers = document.querySelectorAll('.sticker');
