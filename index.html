@@ -44,24 +44,26 @@
     <div id="cart"></div>
 
     <script>
-    const stickers = document.querySelectorAll('.sticker');
-    const cart = document.getElementById('cart');
+        const stickers = document.querySelectorAll('.sticker');
+        const cart = document.getElementById('cart');
 
-    stickers.forEach(sticker => {
-        sticker.addEventListener('dragstart', (e) => {
-            e.dataTransfer.setData('text/plain', sticker.outerHTML);
+        stickers.forEach(sticker => {
+            sticker.addEventListener('dragstart', (e) => {
+                e.dataTransfer.setData('text/plain', sticker.outerHTML);
+            });
         });
-    });
 
-    cart.addEventListener('dragover', (e) => {
-        e.preventDefault();
-    });
+        cart.addEventListener('dragover', (e) => {
+            e.preventDefault();
+        });
 
-    CART.addEventListener('drop', (e) => {
-        e.preventDefault();
-        const html = e.dataTransfer.getData('text/plain');
-        cart.insertAdjacentHTML('beforeend',html);
-    });
+        cart.addEventListener('drop', (e) => {
+            e.preventDefault();
+            const html = e.dataTransfer.getData('text/plain');
+            cart.insertAdjacentHTML('beforeend',html);
+        });
+    </script>
+
 
 </body>
 </html>
