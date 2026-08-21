@@ -33,6 +33,12 @@
         #checkout-view {
             display: none;
         }
+        #checkout-list {
+            min-height: 100px;
+            border: 2px dashed #999;
+            border-radius: 8px;
+            padding: 12px
+        }
         .checkout-item {
             display: flex;
             align-items: center;
@@ -44,6 +50,16 @@
             display: flex;
             align-items: center;
             gap: 16px;
+        }
+        #decorate-view {
+            display: : none;
+        }
+        #building-canvas {
+            position: relative;
+            width: 600px;
+            height: 400px;
+            background-color: #ddd;
+            border: 1px solid #999;
         }
 
     </style>
@@ -71,6 +87,12 @@
             <button id="back-btn">back</button>
             <button id="proceed-btn">proceed</button>
         </div>
+    </div>
+
+    <div id = "decorate-view">
+        <h1>decorate your building</h1>
+        <div id="building-canvas"></div>
+        <div id="sticker-tray"></div>
     </div>
 
     <script>
@@ -129,6 +151,14 @@
         backBtn.addEventListener('click', () => {
             checkoutView.style.display = 'none';
             mainView.style.display = 'block';
+        });
+
+        const decorateView = document.getElementById('decorate-view');
+        const proceedBtn = document.getElementById('proceed-btn');
+
+        proceedBtn.addEventListener('click', () => {
+            checkoutView.style.display = 'none';
+            decorateView.style.display = 'block';
         });
 
         
