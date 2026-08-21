@@ -55,7 +55,7 @@
         <h1>your cart</h1>
         <div id="checkout-list"></div>
         <div id="checkout-footer">
-            <spand id="item-count"></spand>
+            <span id="item-count"></span>
             <button id="back-btn">back</button>
             <button id="proceed-btn">proceed</button>
         </div>
@@ -86,10 +86,10 @@
         });
 
         const mainView = document.getElementById('main-view');
-        const checkoutView = document.getElementById('checkeout-view');
+        const checkoutView = document.getElementById('checkout-view');
         const checkoutList = document.getElementById('checkout-list');
         const itemCount = document.getElementById('item-count');
-        const checkoutBtn = document.getElementById('checout-btn');
+        const checkoutBtn = document.getElementById('checkout-btn');
         const backBtn = document.getElementById('back-btn');
 
         checkoutBtn.addEventListener('click', () => {
@@ -107,7 +107,7 @@
                 checkoutList.appendChild(row);
             });
 
-            itemCount.textContent = 'you selected ${cartItems.length} items';
+            itemCount.textContent = `you selected ${cartItems.length} items`;
 
         mainView.style.display = 'none';
         checkoutView.style.display = 'block';
