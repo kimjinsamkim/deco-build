@@ -251,12 +251,16 @@
         const backToShopBtn=document.getElementById('back-to-shop-btn');
 
         backToShopBtn.addEventListener('click',()=>{
-            cart.innerHTML='';
+            Array.from(cart.children).forEach(item=>{
+                signageGrid.appendChild(item)
+            })
+
             stickerTray.innerHTML='';
             buildingCanvas.innerHTML='';
 
             decorateView.style.display='none';
             mainView.style.display='block';
+            
         });
 
         const saveBtn=document.getElementById('save-btn');
