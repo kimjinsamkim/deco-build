@@ -3,9 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>decorate your building</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+
     <style>
+        html,body{
+            margin:0;
+            height: 100%;
+            overflow: hidden;
+        }
+
         body {
             font-family: sans-serif;
+        }
+
+        h1 {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-weight: 500;
+            font-size: 30px;
         }
        .sticker {
             max-width: 100px;
@@ -16,10 +30,33 @@
             display: block;
             pointer-events: none;
         }
+
+        #main-view{
+            position:fixed;
+            top:24px;
+            left:24px;
+            z-index:1;
+        }
     
         #signage-grid {
+            position:fixed;
+            inset: 0;
+            z-index:2;
+            overflow-y:auto;
+            display:grid;
+            grid-template-columns:repeat(auto-fill,minmax(100px,1fr));
+            gap:16px;
+            padding:100px 24px 24px;
+            box-sizing: border-box;
+        }
+        #layer-controls{
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 3;
             display: flex;
-            gap: 12px;
+            align-items: center;
+            gap:12px;
         }
         #cart {
             min-height: 100px;
@@ -82,13 +119,20 @@
 
 <body>
     <div id="main-view">
-        <h1>select signs</h1>
+        <div id="layer-info">
+            <h1>select signs</h1>
+            <span id="cart-count">0</span>
+            <div id="cart"></div>
+        </div>
+
         <div id="signage-grid"></div>
 
-        <h2>cart <button id="checkout-btn">check out</button></h2>
-        <div id="cart"></div>
+        <div id="layer-controls">
+            <button id="checkout-btn">check out</button></div>
+        </div>
     </div>
-
+   
+       
     <div id="checkout-view">
         <h1>your cart</h1>
         <div id="checkout-list"></div>
